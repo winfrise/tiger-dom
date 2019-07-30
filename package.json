@@ -1,0 +1,21 @@
+{
+  "name": "better-dom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:min": "cross-env NODE_ENV=production npm run build",
+    "build": "rollup -c build/rollup.config.js",
+    "dev": "rollup -c ./build/rollup.config.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-uglify": "^6.0.2"
+  },
+  "dependencies": {}
+}
