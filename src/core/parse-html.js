@@ -1,0 +1,7 @@
+function parseHTML () {
+
+}
+
+export {
+  parseHTML
+}
