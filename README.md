@@ -32,11 +32,11 @@ ${'[type=button]'}
 
 ## 方法
 
-addClass 向DOM元素上添加一个或多个class
+addClass 向DOM元素上添加一个class类
 
 ``` $('#app').addClass('active') ```
 
-removeClass 移除DOM元素上的一个或多个class
+removeClass 移除DOM元素上的一个class类
 
 ``` $('#app').removeClass('active')```
 

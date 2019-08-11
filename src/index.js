@@ -1,5 +1,9 @@
-import TigerDomClass from './core/tiger-dom-class.js'
+import { TigerClass } from './tiger-class'
 
-const tigerDom = TigerDomClass.prototype.init
 
-export default tigerDom
+function tiger (selector, context) {
+  return new TigerClass(selector, context)
+}
+
+
+export default tiger

@@ -4,95 +4,66 @@
   (global = global || self, global.$ = factory());
 }(this, function () { 'use strict';
 
-  function isFunc (o) {
-    return typeof o === 'function'
-  }
+  var doc = document;
 
-  function isTigerDom (o) {
-    return o instanceof TigerDom
-  }
+  const idRe = /^#[a-zA-Z][\w]*/;
 
-  function isString (o) {
-    return typeof o === 'string'
-  }
+  const classRe = /^\.[a-zA-Z][\w]*/;
 
-  function isDoc (o) {
-    return o && o.nodeType === 9
-  }
+  const tagRe = /^[a-zA-z][\w]*/;
 
-  function isEle (o) {
-    return o && o.nodeType === 1
-
-  }
-
-  const doc = document;
-  const div = doc.createElement('div');
-
-  const idRe = /^#[\w-]*$/;
-  const classRe = /^\.[\w-]*$/;
-  const htmlRe = /<.+>/;
-  const tagRe = /^\w+$/;
-
-  function find (selector, context = document) {
-    return !isDoc(context) && !isEle(context)
-              ? []
-              : idRe.test(selector) 
-                ? [ document.getElementById(selector.slice(1)) ]
-                : classRe.test(selector)
-                  ? context.getElementsByClassName(selector.slice(1))
-                  : tagRe.test(selector)
-                    ? context.getElementsByTagName(selector)
-                    : context.querySelectorAll(selector)
-
-  }
-
-  class TigerDom {
-    constructor (selector, context = document) {
-
-      if (!selector) return
-
-      // 判断selector是否是TigerDom实例
-      if (isTigerDom(selector)) return selector
-
-      let eles = selector;
-   
-      if (isString(selector)) {
-
-        // 如果selector是否是字符串
-        const ctx = isTigerDom(context) ? context[0] : context;
-
-        eles = idRe.test(selector) // id选择器
-              ? document.getElementById(selector.slice(1))
-              : htmlRe.test(selector) // HTML字符串
-                ? parseHTML(selector)
-                : find(selector, ctx);
-
-        if (!eles) return
-
-      } else if (isFunc (selector)) {
-
-        // 如果selector是一个函数
-        return this.ready(selector)
-
+  class TigerClass {
+    constructor (selector, context) {
+      var eles;
+      if (context && (context instanceof TigerClass)) { // 如果context是TigerClass实例 设置context为context[0]
+        context = context[0];
+      }
+      if (idRe.test(selector)) {  // 如果是ID选择器
+        eles = [doc.getElementById(selector.slice(1))];
+      } else if (classRe.test(selector)) { // 如果是类选择器
+        eles = (context || doc).getElementsByClassName(selector.slice(1));
+      } else if (tagRe.test(selector)) {
+        eles = (context || doc).getElementsByTagName(selector);
+      } else {
+        eles = document.querySelectorAll(selector);
       }
 
-      // 如果eles(selector)是一个DOM元素
-      if (eles.nodeType || eles === window) eles = [eles];
+      Array.prototype.forEach.call(eles, (ele, index) => {
+        this[index] = ele;
+      });
 
-      this.length = eles.length;
+      return this
+    }
 
-      for (let i = 0, l = this.length; i < l; i++) {
-        this[i] = eles[i];
+    addClass (className) {
+      if (!this[0].classList.contains(className)) {
+        this[0].classList.add(className);
       }
     }
 
-    init (selector, context = document) {
-      return new TigerDom(selector, context)
+    removeClass (className) {
+      if (this[0].classList.contains[className]) {
+        this[0].classList.remove(className);
+      }
+    }
+
+    toggleClass (className) {
+      if (this[0].classList.contains(className)) {
+        this[0].classList.add(className);
+      } else {
+        this[0].classList.remove(className);
+      }
+    }
+
+    extend (name, fn) {
+      TigerClass.prototype[name] = fn;
     }
   }
 
-  const tigerDom = TigerDom.prototype.init;
+  function tiger (selector, context) {
+    return new TigerClass(selector, context)
+  }
 
-  return tigerDom;
+  return tiger;
 
 }));

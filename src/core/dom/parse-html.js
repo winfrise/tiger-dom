@@ -1,7 +1,0 @@
-function parseHTML () {
-
-}
-
-export {
-  parseHTML
-}
