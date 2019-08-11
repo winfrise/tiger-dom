@@ -24,6 +24,8 @@ $('div')
 
 (4) 通过其他方式获取DOM元素 （querySelector、querySelectorAll)
 
+(5) 通过html字符串创建DOM元素
+
 ```
 ${'[type=button]'}
 ```
