@@ -1,6 +1,6 @@
-import { isFunc, isTigerDom, isString } from './type-checking.js'
-import { idRe, htmlRe } from './variables.js'
-import { find } from './find'
+import { isFunc, isTigerDom, isString } from '../utils/type-checking'
+import { idRe, htmlRe } from './dom/variables'
+import { find } from './dom/find'
 
 
 class TigerDom {

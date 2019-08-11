@@ -1,5 +1,5 @@
 import { idRe, classRe, tagRe } from "./variables"
-import { isDoc , isEle } from './type-checking'
+import { isDoc , isEle } from '../../utils/type-checking'
 
 function find (selector, context = document) {
   return !isDoc(context) && !isEle(context)

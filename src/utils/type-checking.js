@@ -1,4 +1,4 @@
-import TigerDom from './tiger-dom-class.js'
+import TigerDom from '../core/tiger-dom-class.js'
 
 function isFunc (o) {
   return typeof o === 'function'
